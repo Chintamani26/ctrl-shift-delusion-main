@@ -1,0 +1,21 @@
+{
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__"
+  ],
+  "executionEnvironments": [
+    {
+      "root": ".",
+      "pythonVersion": "3.12",
+      "pythonPlatform": "Windows",
+      "extraPaths": [
+        "C:\\Python312\\Lib\\site-packages"
+      ]
+    }
+  ],
+  "typeCheckingMode": "basic"
+}
+
