@@ -25,14 +25,26 @@ export default function Home() {
         }),
       });
 
-      if (!response.ok) throw new Error('Director went on strike (API Error)');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || 'Director went on strike (API Error)');
+      }
 
       const data = await response.json();
-      setSceneState(data.updatedScene);
+      
+      // Handle both response formats (with updatedScene or sceneState)
+      const updatedScene = data.updatedScene || data.sceneState;
+      const newLines = data.newLines || [];
+      
+      if (!updatedScene) {
+        throw new Error('Invalid response from backend');
+      }
+      
+      setSceneState(updatedScene);
       
       // Highlight the latest line
-      if (data.newLines && data.newLines.length > 0) {
-        setLatestLineId(data.newLines[data.newLines.length - 1].id);
+      if (newLines.length > 0) {
+        setLatestLineId(newLines[newLines.length - 1].id);
       }
     } catch (error) {
       console.error(error);

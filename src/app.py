@@ -33,10 +33,25 @@ async def director_turn(request: TurnRequest):
     Passes the state and command to the Agent Planner.
     """
     try:
+        print(f"[Backend] Received command: '{request.userCommand}'")
+        print(f"[Backend] Scene state: {'exists' if request.sceneState else 'null (new scene)'}")
+        
         updated_state = await agent.process_turn(request.sceneState, request.userCommand)
-        return {"sceneState": updated_state}
+        
+        # Extract new lines for frontend
+        previous_lines = request.sceneState.get('lines', []) if request.sceneState else []
+        new_lines = updated_state.get('lines', [])[len(previous_lines):]
+        
+        print(f"[Backend] Generated {len(new_lines)} new lines")
+        
+        return {
+            "sceneState": updated_state,
+            "newLines": new_lines  # Also return new lines for frontend convenience
+        }
     except Exception as e:
-        print(f"Error in turn: {e}")
+        print(f"[Backend] Error in turn: {e}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":

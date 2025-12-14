@@ -9,16 +9,30 @@ import json
 import google.generativeai as genai
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Load environment variables from .env file
+# Try to load from project root first, then current directory
+env_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
+if os.path.exists(env_path):
+    load_dotenv(env_path)
+else:
+    load_dotenv()  # Try current directory
 
 # Configure Gemini API
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-if not GEMINI_API_KEY:
-    print("[WARNING] GEMINI_API_KEY not found in environment variables!")
-    print("[WARNING] Please create a .env file with: GEMINI_API_KEY=your_key_here")
+if not GEMINI_API_KEY or GEMINI_API_KEY == "your_gemini_api_key_here" or GEMINI_API_KEY.strip() == "":
+    print("[ERROR] GEMINI_API_KEY not found or not set in .env file!")
+    print("[ERROR] Please create a .env file in the project root with: GEMINI_API_KEY=your_actual_key")
+    print("[ERROR] Get your API key from: https://makersuite.google.com/app/apikey")
+    print("[ERROR] The backend will start but API calls will fail until the key is set.")
+    # Don't raise error - let the server start so user can see the error message
+    GEMINI_API_KEY = None
 
-genai.configure(api_key=GEMINI_API_KEY)
+if GEMINI_API_KEY:
+    # Explicitly configure Gemini with API key (don't rely on default credentials)
+    genai.configure(api_key=GEMINI_API_KEY)
+    print(f"[INFO] Gemini API configured successfully (key length: {len(GEMINI_API_KEY)} chars)")
+else:
+    print("[WARNING] Gemini API not configured - API calls will fail!")
 
 class DirectorTools:
     def __init__(self):
@@ -35,27 +49,36 @@ class DirectorTools:
         actors_list = ", ".join([a['name'] for a in scene_state.get('actors', [])])
         setting = scene_state.get('setting', 'Unknown')
 
-        prompt = f"""
-        You are a scriptwriter for a movie.
+        # Get actor IDs for reference
+        actor_ids = {a['name']: a['id'] for a in scene_state.get('actors', [])}
+        actor_id_list = ", ".join([f"{name} (id: {id})" for name, id in actor_ids.items()])
         
-        CONTEXT:
-        Setting: {setting}
-        Characters: {actors_list}
-        Recent Dialogue:
-        {history_text}
+        prompt = f"""You are a professional scriptwriter for a movie. Generate dialogue and action lines based on the director's instruction.
 
-        DIRECTOR INSTRUCTION: "{user_command}"
+SCENE CONTEXT:
+- Setting: {setting}
+- Characters: {actors_list}
+- Character IDs: {actor_id_list}
+- Recent Dialogue:
+{history_text if history_text else "(Scene just started - no previous dialogue)"}
 
-        TASK:
-        Generate 2-3 lines of dialogue or action keys based on the instruction.
-        Return raw JSON only. Format:
-        {{
-            "newLines": [
-                {{ "actorId": "hero_id", "text": "Line of dialogue..." }},
-                {{ "actorId": "villain_id", "text": "Response..." }}
-            ]
-        }}
-        """
+DIRECTOR'S INSTRUCTION: "{user_command}"
+
+IMPORTANT: The director's instruction is the PRIMARY directive. Generate dialogue that DIRECTLY responds to and fulfills this instruction.
+
+TASK:
+Generate 2-3 lines of dialogue or action that directly address the director's instruction: "{user_command}"
+
+Return ONLY raw JSON (no markdown, no explanations). Format:
+{{
+    "newLines": [
+        {{ "actorId": "hero", "text": "Dialogue that fulfills the director's instruction..." }},
+        {{ "actorId": "ai", "text": "Response that continues the scene..." }}
+    ]
+}}
+
+Use the exact actor IDs from the character list above. Make sure the dialogue directly relates to: "{user_command}"
+"""
 
         try:
             response = self.model.generate_content(prompt)

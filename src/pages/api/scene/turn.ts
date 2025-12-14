@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { SceneState, Line } from '../../../types/scene';
-import { generateSceneLines } from '../../../lib/geminiDirector';
-import { generateAudioUrl } from '../../../lib/mockTTS';
 
 interface TurnRequest {
   sceneState: SceneState | null;
@@ -12,6 +10,9 @@ interface TurnResponse {
   updatedScene: SceneState;
   newLines: Line[];
 }
+
+// Backend API URL - defaults to localhost:8000 for development
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,44 +29,57 @@ export default async function handler(
       return res.status(400).json({ error: 'userCommand is required' });
     }
 
-    // Generate new scene lines using Gemini Director
-    const { updatedScene, newLines } = await generateSceneLines(sceneState, userCommand);
+    // Forward request to Python FastAPI backend
+    console.log(`[API Route] Forwarding to backend: ${BACKEND_URL}/api/scene/turn`);
+    console.log(`[API Route] User command: "${userCommand}"`);
+    
+    const backendResponse = await fetch(`${BACKEND_URL}/api/scene/turn`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        sceneState,
+        userCommand,
+      }),
+    });
 
-    // Generate audio URLs for each new line (simulate async processing)
-    const linesWithAudio = await Promise.all(
-      newLines.map(async (line) => {
-        const actor = updatedScene.actors.find(a => a.id === line.actorId);
-        if (!actor) return line;
+    if (!backendResponse.ok) {
+      const errorText = await backendResponse.text();
+      console.error(`[API Route] Backend error: ${backendResponse.status} - ${errorText}`);
+      throw new Error(`Backend error: ${backendResponse.status} - ${errorText}`);
+    }
 
-        const audioUrl = await generateAudioUrl(line.text, actor.voiceId);
-        return {
-          ...line,
-          audioUrl
-        };
-      })
-    );
+    const backendData = await backendResponse.json();
+    
+    // Backend returns { sceneState: ... }, but frontend expects { updatedScene, newLines }
+    // Extract new lines by comparing with previous state
+    const previousLines = sceneState?.lines || [];
+    const updatedLines = backendData.sceneState?.lines || [];
+    const newLines = updatedLines.slice(previousLines.length);
 
-    // Update the scene with audio URLs
-    const finalScene: SceneState = {
-      ...updatedScene,
-      lines: updatedScene.lines.map((line, index) => {
-        const newLineIndex = newLines.findIndex(nl => nl.id === line.id);
-        if (newLineIndex >= 0) {
-          return linesWithAudio[newLineIndex];
-        }
-        return line;
-      })
+    // Format response for frontend
+    const response: TurnResponse = {
+      updatedScene: backendData.sceneState,
+      newLines: newLines,
     };
 
-    res.status(200).json({
-      updatedScene: finalScene,
-      newLines: linesWithAudio
-    });
+    console.log(`[API Route] Successfully processed turn. Generated ${newLines.length} new lines.`);
+    
+    res.status(200).json(response);
   } catch (error) {
-    console.error('Error processing turn:', error);
-    res.status(500).json({ 
-      error: error instanceof Error ? error.message : 'Internal server error' 
-    });
+    console.error('[API Route] Error processing turn:', error);
+    
+    // If backend is not available, provide helpful error message
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      res.status(503).json({ 
+        error: 'Backend server is not running. Please start the Python backend with: python run_backend.py' 
+      });
+    } else {
+      res.status(500).json({ 
+        error: error instanceof Error ? error.message : 'Internal server error' 
+      });
+    }
   }
 }
 
