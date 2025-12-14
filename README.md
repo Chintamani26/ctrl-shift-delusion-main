@@ -90,11 +90,22 @@
    Frontend will be available at `http://localhost:3000`
 
    Terminal 2 (Python Backend):
+   
+   **Option A - Easy way (from project root):**
+   ```bash
+   python run_backend.py
+   ```
+   
+   **Option B - Manual way:**
    ```bash
    cd src
    python app.py
    ```
+   
    Backend will be available at `http://localhost:8000`
+   API documentation: `http://localhost:8000/docs`
+   
+   **Troubleshooting**: If you encounter issues, see [BACKEND_SETUP.md](BACKEND_SETUP.md) for detailed troubleshooting guide.
 
 ## 📂 Project Structure
 
