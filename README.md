@@ -236,6 +236,15 @@ npm run build
 
 See [LICENSE](LICENSE) file for details.
 
+## 📝 Example Commands
+
+For sample director commands to test the app, see [EXAMPLE_COMMANDS.md](EXAMPLE_COMMANDS.md).
+
+Quick examples:
+- `Start with Arjun discovering a mysterious encrypted file.`
+- `Nexus reveals a shocking truth about the hackathon.`
+- `Arjun and Nexus must work together to escape danger.`
+
 ## 🤝 Contributors
 
 Chintamani Joshi - @Chintamani26 ,
