@@ -211,7 +211,7 @@ See [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributors
 
-Chintamani Joshi - @Chintamani26
+Chintamani Joshi - @Chintamani26 ,
 Mihika Jadhav - @mihikajadhav02
 ---
 
