@@ -124,7 +124,8 @@ function mockGenerateLines(scene: SceneState, userCommand: string): Line[] {
   
   for (let i = 0; i < numLines; i++) {
     const actor = scene.actors[i % scene.actors.length];
-    const lineId = `line-${timestamp}-${i}`;
+    // Use crypto.randomUUID() for globally unique IDs (matches Python's uuid.uuid4())
+    const lineId = `line-${crypto.randomUUID()}`;
     
     let text = '';
     if (userCommand.toLowerCase().includes('action') || userCommand.toLowerCase().includes('move')) {
@@ -144,7 +145,7 @@ function mockGenerateLines(scene: SceneState, userCommand: string): Line[] {
       actorId: actor.id,
       text,
       timestamp: timestamp + i * 1000,
-      beatIndex: scene.currentBeat
+      beatIndex: scene.currentBeat + 1
     });
   }
 

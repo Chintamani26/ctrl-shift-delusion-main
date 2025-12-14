@@ -1,5 +1,5 @@
 import os
-import time
+import asyncio
 import json
 import google.generativeai as genai
 from dotenv import load_dotenv
@@ -63,8 +63,8 @@ class DirectorTools:
         Mocks the Text-to-Speech generation.
         TODO: Replace with ElevenLabs API call.
         """
-        # Simulate processing time
-        time.sleep(0.5) 
+        # Simulate processing time (non-blocking)
+        await asyncio.sleep(0.5) 
         
         # Return a mock URL
         # In a real hackathon, you'd upload the audio to S3/Cloudinary and return that URL
