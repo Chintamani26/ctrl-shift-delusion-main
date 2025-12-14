@@ -1,6 +1,6 @@
 # Example Director Commands for ManchAI
 
-Use these commands in the Direction Panel to test and demonstrate your ManchAI app. These commands will trigger the agentic workflow and generate dialogue using the Gemini API.
+Use these commands in the Direction Panel to test and demonstrate your ManchAI app. These commands will trigger the agentic workflow and generate dialogue using the Gemini API. **Dialogues will automatically play with unique voices for each character!**
 
 ## 🎬 Quick Start Commands
 
@@ -127,7 +127,7 @@ Nexus explains the connection between the hackathon and parallel dimensions.
 
 ## 🔄 Progressive Story Building
 
-Use these in sequence to build a complete narrative:
+Use these in sequence to build a complete narrative. **Each character will speak with their unique voice!**
 
 ### Sequence 1: Discovery (3-5 commands)
 ```
@@ -199,7 +199,7 @@ Nexus explains the security breach in technical detail.
 Arjun responds with concern and determination.
 ```
 
-### Test Multiple Actors
+### Test Multiple Actors & Unique Voices
 ```
 Both Arjun and Nexus react simultaneously to a sudden power surge.
 ```
@@ -211,6 +211,8 @@ Arjun speaks first, expressing his concerns, then Nexus responds with analysis.
 ```
 Arjun and Nexus have a back-and-forth conversation about the risks.
 ```
+
+**Note**: Each character (Arjun and Nexus) will speak with their unique voice characteristics!
 
 ### Test Action Lines
 ```
@@ -274,6 +276,8 @@ Nexus explains that Arjun is actually part of the experiment.
 3. `Arjun discovers something shocking in the server logs.`
 4. `Nexus and Arjun must work together to uncover the truth.`
 
+**Note**: Dialogues will auto-play sequentially with unique voices for each character!
+
 ### Medium Demo (1-2 minutes)
 1. `Begin with Arjun finding encrypted files on the server.`
 2. `Nexus explains the files contain classified information.`
@@ -330,6 +334,20 @@ Arjun confronts Nexus about monitoring his activities.
 Nexus reveals it has been protecting Arjun all along.
 ```
 
+## 🎤 Voice Features
+
+### Unique Character Voices
+- **Arjun** (Protagonist): Higher pitch (1.1), normal rate (0.95) - Nervous, human voice
+- **Nexus** (AI): Lower pitch (0.85), slower rate (0.8) - Robotic, mechanical voice
+- Each character speaks with distinct voice characteristics
+- Voices automatically play sequentially when new dialogue is added
+
+### Auto-Play
+- Dialogues play automatically one by one
+- Continues from last played line when new dialogue is added
+- Toggle auto-play ON/OFF with the button in Script Panel header
+- 300ms natural pause between lines
+
 ## 🎬 Tips for Best Results
 
 1. **Be Specific**: Include character names (Arjun, Nexus) and clear actions
@@ -338,6 +356,7 @@ Nexus reveals it has been protecting Arjun all along.
 4. **Progressive Story**: Build on previous commands to create a narrative
 5. **Test Features**: Try different types (dialogue, action, emotional moments)
 6. **Use Context**: Reference previous dialogue to maintain continuity
+7. **Listen**: Each character has a unique voice - notice the difference!
 
 ## 📝 Command Formatting Tips
 
@@ -360,42 +379,71 @@ If commands don't generate expected dialogue:
 4. **Be Specific**: More specific commands generate better results
 5. **Build Context**: Use multiple commands to build story context
 
+If voices sound the same:
+1. **Check Browser**: Make sure you're using a modern browser (Chrome, Edge, Firefox)
+2. **Check Auto-Play**: Make sure auto-play is enabled to hear sequential playback
+3. **Volume**: Check your system volume and browser audio settings
+
 ## 🎉 Example Workflow
 
-Here's a complete example workflow:
+Here's a complete example workflow with auto-play:
 
 **Step 1**: Initialize
 ```
 Start the scene with Arjun entering the dimly lit server room.
 ```
+*(Arjun's voice plays automatically)*
 
 **Step 2**: Build Context
 ```
 Nexus greets Arjun with an urgent warning about security breaches.
 ```
+*(Nexus's robotic voice plays automatically, continuing from Arjun's line)*
 
 **Step 3**: Add Discovery
 ```
 Arjun discovers encrypted files that shouldn't be there.
 ```
+*(Arjun's voice continues the sequence)*
 
 **Step 4**: Create Conflict
 ```
 Arjun confronts Nexus about hiding information.
 ```
+*(Notice the voice difference between Arjun and Nexus)*
 
 **Step 5**: Reveal Truth
 ```
 Nexus explains it was protecting Arjun from danger.
 ```
+*(Nexus's slower, deeper robotic voice)*
 
 **Step 6**: Resolution
 ```
 Arjun and Nexus decide to work together to uncover the truth.
 ```
+*(Both characters speak with their unique voices)*
+
+---
+
+## 🎤 Character Voice Profiles
+
+### Arjun (Protagonist)
+- **Voice Type**: Human, nervous
+- **Pitch**: Higher (1.1) - More expressive
+- **Rate**: Normal (0.95) - Natural speaking pace
+- **Style**: Nervous, determined
+
+### Nexus (AI/Supporting)
+- **Voice Type**: Robotic, mechanical
+- **Pitch**: Lower (0.85) - Deeper, more mechanical
+- **Rate**: Slower (0.8) - Deliberate, calculated
+- **Style**: Robotic, analytical
+
+**Each character's dialogue will automatically play with their unique voice characteristics!**
 
 ---
 
 **Happy Directing! 🎬** 
 
-Use these commands to showcase your ManchAI app's agentic capabilities and create engaging, dynamic scripts!
+Use these commands to showcase your ManchAI app's agentic capabilities and create engaging, dynamic scripts with unique character voices!

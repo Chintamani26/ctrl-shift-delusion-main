@@ -9,6 +9,7 @@ export interface VoiceConfig {
   pitch?: number;
   rate?: number;
   volume?: number;
+  voicePreference?: string[]; // Preferred voice names for character-specific voices
 }
 
 // Map of language codes to Web Speech API voices
@@ -55,11 +56,51 @@ export function speakText(
       return;
     }
 
-    const preferredVoices = languageToVoiceMap[config.language] || [config.language];
+    // Try to find a voice matching preferences (character-specific or language-based)
+    let voice: SpeechSynthesisVoice | null = null;
     
-    const voice = voices.find(v => 
-      preferredVoices.some(lang => v.lang.startsWith(lang))
-    ) || voices.find(v => v.lang.startsWith(config.language)) || voices[0];
+    // First, try character-specific voice preferences if provided
+    if (config.voicePreference && config.voicePreference.length > 0) {
+      // Try to find voices matching the preferred language codes
+      const preferredVoices = config.voicePreference;
+      const matchingVoices = voices.filter(v => 
+        preferredVoices.some(lang => v.lang.startsWith(lang))
+      );
+      
+      if (matchingVoices.length > 0) {
+        // If pitch is lower (deeper voice), prefer male voices; if higher, prefer female
+        // This is a heuristic - actual voice gender varies by browser
+        if (config.pitch && config.pitch < 1.0) {
+          // Lower pitch - try to find deeper voices (often male)
+          voice = matchingVoices.find(v => v.name.toLowerCase().includes('male') || 
+                                          v.name.toLowerCase().includes('david') ||
+                                          v.name.toLowerCase().includes('mark')) 
+                 || matchingVoices[0];
+        } else if (config.pitch && config.pitch > 1.0) {
+          // Higher pitch - try to find higher voices (often female)
+          voice = matchingVoices.find(v => v.name.toLowerCase().includes('female') || 
+                                          v.name.toLowerCase().includes('zira') ||
+                                          v.name.toLowerCase().includes('samantha')) 
+                 || matchingVoices[0];
+        } else {
+          voice = matchingVoices[0];
+        }
+      }
+    }
+    
+    // Fallback to language-based selection
+    if (!voice) {
+      const languageVoices = languageToVoiceMap[config.language] || [config.language];
+      const langMatchingVoices = voices.filter(v => 
+        languageVoices.some(lang => v.lang.startsWith(lang))
+      );
+      
+      if (langMatchingVoices.length > 0) {
+        voice = langMatchingVoices[0];
+      } else {
+        voice = voices.find(v => v.lang.startsWith(config.language)) || voices[0];
+      }
+    }
 
     if (voice) {
       utterance.voice = voice;

@@ -74,8 +74,7 @@ export default async function handler(
     if (error instanceof TypeError && (error.message.includes('fetch') || error.message.includes('ECONNREFUSED'))) {
       console.error('[API Route] Backend connection failed:', error);
       res.status(503).json({ 
-        error: 'Backend server is not running. Please start the Python backend with: python run_backend.py',
-        details: 'Make sure the backend is running on http://localhost:8000'
+        error: 'Backend server is not running. Please start the Python backend with: python run_backend.py'
       });
     } else {
       console.error('[API Route] Error:', error);
