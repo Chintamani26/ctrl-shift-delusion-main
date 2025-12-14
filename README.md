@@ -236,10 +236,10 @@ npm run build
 
 See [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
+## 🤝 Contributors
 
-This is a hackathon submission. For questions or issues, please open an issue on GitHub.
-
+Chintamani Joshi - @Chintamani26 ,
+Mihika Jadhav - @mihikajadhav02
 ---
 
 **Built for the Agentic AI App Hackathon** 🚀
