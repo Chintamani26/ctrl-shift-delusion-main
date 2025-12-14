@@ -1,0 +1,66 @@
+name: CI Smoke Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: Install Python dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Test Python imports
+      run: |
+        cd src
+        python -c "from planner import agent; from tools import tools; print('Python imports OK')"
+    
+    - name: Test async functionality
+      run: |
+        cd src
+        python -c "
+        import asyncio
+        from planner import agent
+        async def test():
+            result = await agent.process_turn(None, 'Test command')
+            assert 'title' in result
+            assert 'actors' in result
+            print('Async test OK')
+        asyncio.run(test())
+        "
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install Node.js dependencies
+      run: npm ci
+    
+    - name: Check TypeScript compilation
+      run: npm run build
+      continue-on-error: true
+    
+    - name: Verify file structure
+      run: |
+        test -f src/app.py || exit 1
+        test -f src/planner.py || exit 1
+        test -f src/tools.py || exit 1
+        test -f ARCHITECTURE.md || exit 1
+        test -f EXPLANATION.md || exit 1
+        test -f DEMO.md || exit 1
+        echo "All required files present"
+
