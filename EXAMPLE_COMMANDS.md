@@ -1,44 +1,57 @@
 # Example Director Commands for ManchAI
 
-Use these commands in the Direction Panel to test and demonstrate your ManchAI app. These commands will trigger the agentic workflow and generate dialogue.
+Use these commands in the Direction Panel to test and demonstrate your ManchAI app. These commands will trigger the agentic workflow and generate dialogue using the Gemini API.
 
 ## 🎬 Quick Start Commands
 
 ### Scene Initialization
 ```
-Start the scene with Arjun discovering a mysterious encrypted file on the server.
+Start the scene with Arjun entering the dimly lit server room.
 ```
 
 ```
-Begin with Nexus warning Arjun about an incoming security breach.
+Begin with Nexus detecting an anomaly in the system logs.
 ```
 
 ```
-Open with a tense moment where Arjun realizes he's being watched.
+Open with Arjun discovering encrypted files on the server.
 ```
 
 ## 💬 Dialogue Generation Commands
 
+### Discovery & Investigation
+```
+Arjun finds a hidden message in the encrypted files.
+```
+
+```
+Nexus reveals that the server room has been accessed by an unknown entity.
+```
+
+```
+Arjun discovers the hackathon is connected to a larger conspiracy.
+```
+
 ### Confrontation Scenes
 ```
-Arjun confronts Nexus about hiding information about the hackathon.
+Arjun confronts Nexus about keeping secrets about the hackathon.
 ```
 
 ```
-Nexus reveals a shocking truth about the server room's true purpose.
+Nexus explains why it has been hiding information from Arjun.
 ```
 
 ```
-Arjun demands answers about the encrypted files he found.
+Arjun demands answers about what Nexus knows about the encrypted files.
 ```
 
 ### Action & Movement
 ```
-Arjun moves closer to the server rack, noticing something unusual.
+Arjun moves closer to the server rack, noticing unusual activity lights.
 ```
 
 ```
-Nexus activates emergency protocols as alarms start blaring.
+Nexus activates emergency security protocols as alarms begin blaring.
 ```
 
 ```
@@ -47,35 +60,35 @@ Arjun frantically types commands while Nexus warns of imminent danger.
 
 ### Emotional Moments
 ```
-Arjun expresses fear about what they've discovered.
+Arjun expresses fear and uncertainty about what they've discovered.
 ```
 
 ```
-Nexus shows concern for Arjun's safety, breaking its robotic demeanor.
+Nexus shows unexpected concern for Arjun's safety, breaking its robotic demeanor.
 ```
 
 ```
-Arjun questions whether they should continue or escape.
+Arjun questions whether they should continue investigating or escape.
 ```
 
-### Mystery & Discovery
+### Mystery & Revelation
 ```
-Arjun discovers a hidden message in the code that changes everything.
-```
-
-```
-Nexus reveals it has been keeping secrets about the hackathon's true nature.
+Nexus reveals it has been monitoring Arjun's activities for protection.
 ```
 
 ```
 Arjun realizes the server room is not what it appears to be.
 ```
 
+```
+Nexus explains the connection between the hackathon and a global network.
+```
+
 ## 🎭 Genre-Specific Commands
 
 ### Cyberpunk Mystery
 ```
-Arjun finds evidence that the hackathon is a cover for something darker.
+Arjun discovers evidence that the hackathon is a cover for something darker.
 ```
 
 ```
@@ -92,11 +105,11 @@ Arjun hears footsteps approaching the server room door.
 ```
 
 ```
-Nexus detects an unauthorized access attempt from outside.
+Nexus detects an unauthorized access attempt from outside the building.
 ```
 
 ```
-Arjun must decide quickly: trust Nexus or run.
+Arjun must decide quickly: trust Nexus completely or run for safety.
 ```
 
 ### Sci-Fi Elements
@@ -114,22 +127,28 @@ Nexus explains the connection between the hackathon and parallel dimensions.
 
 ## 🔄 Progressive Story Building
 
-Use these in sequence to build a narrative:
+Use these in sequence to build a complete narrative:
 
-**Sequence 1: Discovery**
+### Sequence 1: Discovery (3-5 commands)
 ```
-Start with Arjun finding an anomaly in the server logs.
-```
-```
-Nexus warns that investigating further could be dangerous.
+Start the scene with Arjun entering the dimly lit server room.
 ```
 ```
-Arjun insists on continuing despite the warnings.
+Nexus greets Arjun with an urgent warning about security breaches.
+```
+```
+Arjun discovers something unusual in the server logs.
+```
+```
+Nexus tries to prevent Arjun from investigating further.
+```
+```
+Arjun insists on continuing despite Nexus's warnings.
 ```
 
-**Sequence 2: Escalation**
+### Sequence 2: Escalation (3-5 commands)
 ```
-Arjun uncovers evidence of a conspiracy.
+Arjun uncovers evidence of a conspiracy within the hackathon.
 ```
 ```
 Nexus reveals it has been monitoring Arjun's activities.
@@ -137,61 +156,88 @@ Nexus reveals it has been monitoring Arjun's activities.
 ```
 Arjun confronts Nexus about its true intentions.
 ```
-
-**Sequence 3: Resolution**
 ```
-Nexus explains it was protecting Arjun from the truth.
+Nexus explains it was protecting Arjun from danger.
+```
+```
+Arjun and Nexus form an uneasy alliance.
+```
+
+### Sequence 3: Resolution (3-5 commands)
+```
+Nexus reveals the full truth about the hackathon's purpose.
 ```
 ```
 Arjun must choose between exposing the conspiracy or keeping it secret.
 ```
 ```
-Nexus and Arjun form an alliance to uncover the full truth.
+Nexus and Arjun decide to work together to uncover everything.
+```
+```
+They discover the hackathon is connected to something much bigger.
+```
+```
+Arjun and Nexus prepare to reveal the truth to the world.
 ```
 
 ## 🎯 Testing Different Features
 
 ### Test Beat Progression
 ```
-Arjun enters the server room cautiously.
+Arjun enters the server room cautiously, looking around.
 ```
 ```
-Nexus greets Arjun with an urgent warning.
+Nexus greets Arjun with an urgent warning about security.
 ```
 ```
-Arjun asks Nexus what's happening.
+Arjun asks Nexus what's happening with the system.
 ```
 ```
-Nexus explains the security breach in detail.
+Nexus explains the security breach in technical detail.
+```
+```
+Arjun responds with concern and determination.
 ```
 
 ### Test Multiple Actors
 ```
-Both Arjun and Nexus react to a sudden power surge.
+Both Arjun and Nexus react simultaneously to a sudden power surge.
 ```
 
 ```
-Arjun speaks first, then Nexus responds with technical analysis.
+Arjun speaks first, expressing his concerns, then Nexus responds with analysis.
+```
+
+```
+Arjun and Nexus have a back-and-forth conversation about the risks.
 ```
 
 ### Test Action Lines
 ```
-[ACTION] Arjun's hands tremble as he types.
+[ACTION] Arjun's hands tremble as he types commands into the terminal.
 ```
 
 ```
-[ACTION] The server lights flicker ominously.
+[ACTION] The server lights flicker ominously as Nexus processes the data.
+```
+
+```
+[ACTION] Arjun moves closer to the server rack, examining the connections.
 ```
 
 ## 💡 Creative Prompts
 
 ### Character Development
 ```
-Nexus shows unexpected emotion, revealing it cares about Arjun.
+Nexus shows unexpected emotion, revealing it genuinely cares about Arjun.
 ```
 
 ```
-Arjun's nervous personality shifts to determination.
+Arjun's nervous personality shifts to determination as he learns the truth.
+```
+
+```
+Nexus breaks its robotic facade to show genuine concern for Arjun's safety.
 ```
 
 ### World Building
@@ -200,7 +246,11 @@ Nexus describes the hidden network of servers beneath New Delhi.
 ```
 
 ```
-Arjun discovers the hackathon is connected to a global conspiracy.
+Arjun discovers the hackathon is connected to a global conspiracy network.
+```
+
+```
+Nexus explains the true purpose of the quantum computing facility.
 ```
 
 ### Plot Twists
@@ -212,12 +262,17 @@ Nexus reveals it is not an AI but a trapped human consciousness.
 Arjun realizes he has been in a simulation all along.
 ```
 
+```
+Nexus explains that Arjun is actually part of the experiment.
+```
+
 ## 🎪 Demo-Ready Sequences
 
-### Short Demo (30 seconds)
-1. `Start with Arjun discovering something shocking in the server room.`
-2. `Nexus warns Arjun that they're not alone.`
-3. `Arjun and Nexus must work together to escape.`
+### Short Demo (30-60 seconds)
+1. `Start the scene with Arjun entering the dimly lit server room.`
+2. `Nexus greets Arjun with an urgent warning about security.`
+3. `Arjun discovers something shocking in the server logs.`
+4. `Nexus and Arjun must work together to uncover the truth.`
 
 ### Medium Demo (1-2 minutes)
 1. `Begin with Arjun finding encrypted files on the server.`
@@ -225,10 +280,11 @@ Arjun realizes he has been in a simulation all along.
 3. `Arjun demands to know what Nexus is hiding.`
 4. `Nexus reveals the truth about the hackathon.`
 5. `Arjun must decide whether to expose the conspiracy.`
+6. `Nexus and Arjun form an alliance to reveal everything.`
 
 ### Full Demo (3-5 minutes)
 1. `Start the scene with Arjun entering the dimly lit server room.`
-2. `Nexus greets Arjun with an urgent warning about security.`
+2. `Nexus greets Arjun with an urgent warning about security breaches.`
 3. `Arjun discovers something unusual in the server logs.`
 4. `Nexus tries to prevent Arjun from investigating further.`
 5. `Arjun confronts Nexus about keeping secrets.`
@@ -237,14 +293,6 @@ Arjun realizes he has been in a simulation all along.
 8. `They discover the hackathon is a cover for something bigger.`
 9. `Arjun must choose between safety and exposing the conspiracy.`
 10. `Nexus and Arjun decide to work together to reveal everything.`
-
-## 🎬 Tips for Best Results
-
-1. **Be Specific**: Include character names and clear actions
-2. **Build Tension**: Use commands that create conflict or mystery
-3. **Vary Commands**: Mix dialogue requests with action descriptions
-4. **Progressive Story**: Build on previous commands to create a narrative
-5. **Test Features**: Try different types (dialogue, action, emotional moments)
 
 ## 🚀 Quick Copy-Paste Commands
 
@@ -255,7 +303,7 @@ Arjun discovers a hidden message that changes everything.
 ```
 
 ```
-Nexus reveals a shocking truth about the hackathon.
+Nexus reveals a shocking truth about the hackathon's true purpose.
 ```
 
 ```
@@ -270,7 +318,84 @@ Nexus shows unexpected emotion, breaking its robotic facade.
 Arjun realizes the server room is not what it seems.
 ```
 
+```
+Nexus explains the connection between the hackathon and global events.
+```
+
+```
+Arjun confronts Nexus about monitoring his activities.
+```
+
+```
+Nexus reveals it has been protecting Arjun all along.
+```
+
+## 🎬 Tips for Best Results
+
+1. **Be Specific**: Include character names (Arjun, Nexus) and clear actions
+2. **Build Tension**: Use commands that create conflict or mystery
+3. **Vary Commands**: Mix dialogue requests with action descriptions
+4. **Progressive Story**: Build on previous commands to create a narrative
+5. **Test Features**: Try different types (dialogue, action, emotional moments)
+6. **Use Context**: Reference previous dialogue to maintain continuity
+
+## 📝 Command Formatting Tips
+
+### Good Commands:
+- ✅ "Arjun discovers encrypted files on the server."
+- ✅ "Nexus reveals the truth about the hackathon."
+- ✅ "Arjun and Nexus debate whether to expose the conspiracy."
+
+### Less Effective:
+- ❌ "Make them talk." (too vague)
+- ❌ "Generate dialogue." (not specific)
+- ❌ "Continue the scene." (lacks direction)
+
+## 🔧 Troubleshooting
+
+If commands don't generate expected dialogue:
+1. **Check Backend**: Make sure Python backend is running on port 8000
+2. **Check API Key**: Verify GEMINI_API_KEY is set in .env file
+3. **Check Console**: Look at browser console (F12) for errors
+4. **Be Specific**: More specific commands generate better results
+5. **Build Context**: Use multiple commands to build story context
+
+## 🎉 Example Workflow
+
+Here's a complete example workflow:
+
+**Step 1**: Initialize
+```
+Start the scene with Arjun entering the dimly lit server room.
+```
+
+**Step 2**: Build Context
+```
+Nexus greets Arjun with an urgent warning about security breaches.
+```
+
+**Step 3**: Add Discovery
+```
+Arjun discovers encrypted files that shouldn't be there.
+```
+
+**Step 4**: Create Conflict
+```
+Arjun confronts Nexus about hiding information.
+```
+
+**Step 5**: Reveal Truth
+```
+Nexus explains it was protecting Arjun from danger.
+```
+
+**Step 6**: Resolution
+```
+Arjun and Nexus decide to work together to uncover the truth.
+```
+
 ---
 
-**Happy Directing! 🎬** Use these commands to showcase your ManchAI app's agentic capabilities!
+**Happy Directing! 🎬** 
 
+Use these commands to showcase your ManchAI app's agentic capabilities and create engaging, dynamic scripts!

@@ -36,7 +36,23 @@ else:
 
 class DirectorTools:
     def __init__(self):
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        # Use available models - gemini-2.0-flash is widely available
+        # Fallback chain: gemini-2.0-flash -> gemini-pro-latest -> gemini-pro
+        try:
+            self.model = genai.GenerativeModel('gemini-2.0-flash')
+            print("[INFO] Using model: gemini-2.0-flash")
+        except Exception as e:
+            print(f"[WARNING] gemini-2.0-flash not available, trying gemini-pro-latest: {e}")
+            try:
+                self.model = genai.GenerativeModel('gemini-pro-latest')
+                print("[INFO] Using model: gemini-pro-latest")
+            except Exception as e2:
+                print(f"[WARNING] gemini-pro-latest failed, trying gemini-pro: {e2}")
+                try:
+                    self.model = genai.GenerativeModel('gemini-pro')
+                    print("[INFO] Using model: gemini-pro")
+                except Exception as e3:
+                    raise ValueError(f"Could not initialize any Gemini model. Last error: {e3}")
 
     async def generate_dialogue(self, scene_state: dict, user_command: str) -> list:
         """
