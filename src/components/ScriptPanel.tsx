@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SceneState, Line } from '../types/scene';
-import { Clock, Volume2 } from 'lucide-react';
+import { Clock, Volume2, Play, Square } from 'lucide-react';
+import { speakText, stopSpeaking, isSpeaking } from '../lib/tts';
 
 interface ScriptPanelProps {
   sceneState: SceneState | null;
@@ -9,6 +10,7 @@ interface ScriptPanelProps {
 
 export default function ScriptPanel({ sceneState, latestLineId }: ScriptPanelProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [playingLineId, setPlayingLineId] = useState<string | null>(null);
 
   useEffect(() => {
     // Auto-scroll to bottom when new lines are added
@@ -16,6 +18,50 @@ export default function ScriptPanel({ sceneState, latestLineId }: ScriptPanelPro
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [sceneState?.lines.length, latestLineId]);
+
+  // Cleanup: stop speaking when component unmounts
+  useEffect(() => {
+    return () => {
+      stopSpeaking();
+    };
+  }, []);
+
+  const handlePlayAudio = (line: Line) => {
+    // Check if this line is currently playing
+    const isCurrentlyPlaying = playingLineId === line.id;
+    
+    if (isCurrentlyPlaying) {
+      // Stop if already playing
+      stopSpeaking();
+      setPlayingLineId(null);
+      return;
+    }
+
+    // Stop any current speech from other lines
+    stopSpeaking();
+    setPlayingLineId(null);
+    
+    const actor = sceneState?.actors.find(a => a.id === line.actorId);
+    const textToSpeak = line.text.startsWith('[ACTION]') 
+      ? line.text.replace('[ACTION]', '').trim()
+      : line.text;
+
+    if (!textToSpeak.trim()) {
+      return; // Don't speak empty text
+    }
+
+    speakText(textToSpeak, {
+      language: actor?.language || 'en-US',
+      pitch: 1.0,
+      rate: 0.9,
+      volume: 1.0,
+    }, () => {
+      // On end callback - clear playing state
+      setPlayingLineId(null);
+    });
+
+    setPlayingLineId(line.id);
+  };
 
   if (!sceneState) {
     return (
@@ -110,19 +156,41 @@ export default function ScriptPanel({ sceneState, latestLineId }: ScriptPanelPro
                     {isAction ? line.text.replace('[ACTION]', '').trim() : line.text}
                   </p>
 
-                  {line.audioUrl && (
-                    <div className="mt-3 flex items-center gap-2">
-                      <Volume2 size={14} className="text-gray-400" />
-                      <a
-                        href={line.audioUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-blue-400 hover:text-blue-300 underline"
-                      >
-                        Audio available
-                      </a>
-                    </div>
-                  )}
+                  <div className="mt-3 flex items-center gap-3">
+                    {/* Play button for browser TTS */}
+                    <button
+                      onClick={() => handlePlayAudio(line)}
+                      className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-lg transition-colors"
+                      title={playingLineId === line.id ? 'Stop playback' : 'Play audio'}
+                    >
+                      {playingLineId === line.id ? (
+                        <>
+                          <Square size={12} />
+                          Stop
+                        </>
+                      ) : (
+                        <>
+                          <Play size={12} />
+                          Play
+                        </>
+                      )}
+                    </button>
+
+                    {/* Show audio URL if available (from backend) */}
+                    {line.audioUrl && (
+                      <div className="flex items-center gap-2">
+                        <Volume2 size={14} className="text-gray-400" />
+                        <a
+                          href={line.audioUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-blue-400 hover:text-blue-300 underline"
+                        >
+                          Download audio
+                        </a>
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}
