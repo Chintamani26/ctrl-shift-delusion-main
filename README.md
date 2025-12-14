@@ -11,7 +11,9 @@
 - **Dark Cinematic UI**: Modern, dark-themed interface optimized for creative workflow
 - **Dual Backend Support**: Next.js (TypeScript) and FastAPI (Python) implementations
 
-## 🏗️ Architecture
+## 🏗️ Agentic Architecture (ReAct Pattern)
+
+ManchAI implements a **ReAct (Reasoning + Acting)** agentic architecture with clear separation of concerns:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -34,14 +36,37 @@
                     │ (FastAPI/Python)│
                     └────────┬────────┘
                              │
+                    ┌────────▼────────┐
+                    │   Planner       │
+                    │  (planner.py)   │
+                    │  ReAct Cycle    │
+                    └────────┬────────┘
+                             │
         ┌────────────────────┼──────────────────┐
         │                    │                  │
 ┌───────▼────────┐   ┌───────▼────────┐  ┌──────▼────────┐
-│  Gemini        │   │  Director      │  │  TTS          │
-│  Director      │   │  Agent         │  │  (Mock)       │
-│  (Gemini API)  │   │  (Planner)     │  │               │
+│   Memory       │   │   Executor     │  │   Tools       │
+│  (memory.py)   │   │  (executor.py) │  │  (tools.py)   │
+│                │   │                │  │               │
+│  - Context     │   │  - Execute     │  │  - Gemini API │
+│  - History     │   │  - Call Tools  │  │  - TTS        │
 └────────────────┘   └────────────────┘  └───────────────┘
 ```
+
+### Core Agent Modules
+
+- **`planner.py`**: Breaks down user goals into sub-tasks using Gemini for reasoning
+- **`executor.py`**: Executes planned actions and tool calls
+- **`memory.py`**: Stores and retrieves scene context and dialogue history
+- **`tools.py`**: Direct integration with Google Gemini API
+
+### Agent Workflow
+
+1. **REASON**: Planner uses Gemini to analyze user command
+2. **PLAN**: Breaks down into sub-tasks (initialize, generate dialogue, generate audio)
+3. **ACT**: Executor calls tools (Gemini API, TTS)
+4. **OBSERVE**: Processes results and updates state
+5. **STORE**: Memory module stores updated state
 
 ## 🚀 Quick Start
 
@@ -116,8 +141,10 @@ ctrl-shift-delusion-main/
 │       └── ci.yml              # CI smoke-test workflow
 ├── src/                        # Your agent code
 │   ├── app.py                  # FastAPI backend server
-│   ├── planner.py              # Director Agent (orchestrates turns)
-│   ├── tools.py                 # Gemini integration & TTS
+│   ├── planner.py              # ReAct planner (breaks down tasks)
+│   ├── executor.py             # Tool executor (executes actions)
+│   ├── memory.py               # Memory & context management
+│   ├── tools.py                # Gemini API integration & TTS
 │   ├── components/              # React UI components
 │   │   ├── DirectionPanel.tsx
 │   │   ├── ScriptPanel.tsx

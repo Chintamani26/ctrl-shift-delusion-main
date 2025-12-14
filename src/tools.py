@@ -1,3 +1,8 @@
+"""
+DirectorTools: Tool integration module for Gemini API and TTS.
+This module provides the actual implementation of tool calls used by the executor.
+"""
+
 import os
 import asyncio
 import json
@@ -7,8 +12,13 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# Configure Gemini
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+# Configure Gemini API
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+if not GEMINI_API_KEY:
+    print("[WARNING] GEMINI_API_KEY not found in environment variables!")
+    print("[WARNING] Please create a .env file with: GEMINI_API_KEY=your_key_here")
+
+genai.configure(api_key=GEMINI_API_KEY)
 
 class DirectorTools:
     def __init__(self):
